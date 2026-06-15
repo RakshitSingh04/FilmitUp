@@ -1,61 +1,71 @@
 import './style.css'
 
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Scroll Reveal Animation
-  const fadeElements = document.querySelectorAll('.fade-in');
-  const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        fadeObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Initialize Lenis for Smooth Scrolling
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+  })
 
-  fadeElements.forEach(el => fadeObserver.observe(el));
+  gsap.registerPlugin(ScrollTrigger);
 
-  // 2. Custom Cursor
-  const cursorDot = document.querySelector('.cursor-dot');
-  const cursorOutline = document.querySelector('.cursor-outline');
+  // Sync Lenis with GSAP ScrollTrigger
+  lenis.on('scroll', ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
   
-  if (window.matchMedia("(pointer: fine)").matches) {
-    window.addEventListener('mousemove', (e) => {
-      const posX = e.clientX;
-      const posY = e.clientY;
-      
-      cursorDot.style.left = `${posX}px`;
-      cursorDot.style.top = `${posY}px`;
-      
-      // Add slight delay to outline for a trailing effect
-      cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-      }, { duration: 500, fill: "forwards" });
-    });
+  gsap.ticker.lagSmoothing(0);
 
-    // Cursor hover effects on links/buttons
-    const hoverElements = document.querySelectorAll('a, button, .magnetic, .gallery-item');
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
+  // Hero Text Reveal
+  const revealTexts = document.querySelectorAll('.reveal-text');
+  if (revealTexts.length > 0) {
+    gsap.to(revealTexts, {
+      y: '0%',
+      opacity: 1,
+      duration: 1.2,
+      stagger: 0.15,
+      ease: 'power4.out',
+      delay: 0.2
     });
   }
 
-  // 3. Magnetic Buttons
-  const magneticButtons = document.querySelectorAll('.btn-primary, .magnetic');
-  magneticButtons.forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-    });
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = 'translate(0px, 0px)';
+  // 2. Navbar Scroll Effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('nav-scrolled');
+    } else {
+      navbar.classList.remove('nav-scrolled');
+    }
+  });
+
+  // 2. Mobile Menu Toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+  });
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('open');
     });
   });
 
-  // 4. ScrollSpy Navigation
+  // 3. ScrollSpy Navigation
   const sections = document.querySelectorAll('section');
   const navLinks = document.querySelectorAll('.nav-links a');
   
@@ -64,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.clientHeight;
-      if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+      if (scrollY >= (sectionTop - sectionHeight / 3)) {
         current = section.getAttribute('id');
       }
     });
@@ -77,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Back to Top Button
+  // 4. Back to Top Button
   const backToTopBtn = document.getElementById('back-to-top');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 500) {
@@ -91,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // 6. Number Counter Animation
+  // 5. Number Counter Animation
   const counters = document.querySelectorAll('.counter');
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -118,89 +128,147 @@ document.addEventListener('DOMContentLoaded', () => {
   
   counters.forEach(counter => counterObserver.observe(counter));
 
-  // 7. Testimonials Carousel
-  const track = document.querySelector('.carousel-track');
-  const slides = Array.from(track.children);
-  const nextButton = document.querySelector('.next-btn');
-  const prevButton = document.querySelector('.prev-btn');
-  
-  let currentIndex = 0;
-  let isDragging = false;
-  let startPos = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-  let animationID = 0;
-  
-  const updateCarousel = () => {
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    prevTranslate = currentIndex * -track.offsetWidth;
-  };
-  
-  nextButton.addEventListener('click', () => {
-    if (currentIndex < slides.length - 1) currentIndex++;
-    else currentIndex = 0;
-    updateCarousel();
+  // 6. GSAP Reveal Animations
+  gsap.utils.toArray('.gs-reveal-up').forEach(function(elem) {
+    ScrollTrigger.create({
+      trigger: elem,
+      start: "top 85%",
+      onEnter: function() {
+        gsap.fromTo(elem, { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power2.out", overwrite: "auto" });
+      },
+      once: true
+    });
   });
-  
-  prevButton.addEventListener('click', () => {
-    if (currentIndex > 0) currentIndex--;
-    else currentIndex = slides.length - 1;
-    updateCarousel();
+
+  gsap.utils.toArray('.gs-reveal-right').forEach(function(elem) {
+    ScrollTrigger.create({
+      trigger: elem,
+      start: "top 85%",
+      onEnter: function() {
+        gsap.fromTo(elem, { x: 40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.8, ease: "power2.out", overwrite: "auto" });
+      },
+      once: true
+    });
   });
-  
-  // Drag support for carousel
-  slides.forEach((slide, index) => {
-    const slideImage = slide.querySelector('img');
-    if (slideImage) slideImage.addEventListener('dragstart', (e) => e.preventDefault());
-    
-    slide.addEventListener('pointerdown', touchStart(index));
-    slide.addEventListener('pointerup', touchEnd);
-    slide.addEventListener('pointerleave', touchEnd);
-    slide.addEventListener('pointermove', touchMove);
+
+  // Staggered reveals for grids
+  ScrollTrigger.create({
+    trigger: '.expertise-grid',
+    start: "top 80%",
+    onEnter: () => {
+      gsap.fromTo('.expertise-col', { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.15, ease: "power2.out" });
+    },
+    once: true
   });
+
+  ScrollTrigger.create({
+    trigger: '.brands-grid',
+    start: "top 80%",
+    onEnter: () => {
+      gsap.fromTo('.brand-card', { scale: 0.9, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" });
+    },
+    once: true
+  });
+
+  ScrollTrigger.create({
+    trigger: '.case-grid',
+    start: "top 80%",
+    onEnter: () => {
+      gsap.fromTo('.case-card', { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.2, ease: "power2.out" });
+    },
+    once: true
+  });
+
+  // 7. Carousel Logic
+  const track = document.getElementById('client-carousel');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
   
-  function touchStart(index) {
-    return function(event) {
-      isDragging = true;
-      startPos = event.clientX;
-      animationID = requestAnimationFrame(animation);
-      track.style.transition = 'none';
-    }
-  }
-  
-  function touchMove(event) {
-    if (isDragging) {
-      const currentPosition = event.clientX;
-      currentTranslate = prevTranslate + currentPosition - startPos;
-    }
-  }
-  
-  function touchEnd() {
-    isDragging = false;
-    cancelAnimationFrame(animationID);
+  if (track && prevBtn && nextBtn) {
+    const scrollAmount = 350; // rough width of a slide
     
-    const movedBy = currentTranslate - prevTranslate;
-    track.style.transition = 'transform 0.5s ease';
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
     
-    if (movedBy < -100 && currentIndex < slides.length - 1) currentIndex += 1;
-    if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
-    
-    updateCarousel();
-  }
-  
-  function animation() {
-    if (isDragging) {
-      track.style.transform = `translateX(${currentTranslate}px)`;
-      requestAnimationFrame(animation);
+    nextBtn.addEventListener('click', () => {
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    });
+
+    // Auto-slide
+    let autoSlideInterval = setInterval(() => nextBtn.click(), 3000);
+
+    const carouselWrapper = document.querySelector('.carousel-wrapper');
+    if (carouselWrapper) {
+      carouselWrapper.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      carouselWrapper.addEventListener('mouseleave', () => {
+        autoSlideInterval = setInterval(() => nextBtn.click(), 3000);
+      });
     }
   }
 
-  // Auto play carousel
-  setInterval(() => {
-    if (!isDragging) {
-      if (currentIndex < slides.length - 1) currentIndex++;
-      else currentIndex = 0;
-      updateCarousel();
-    }
-  }, 5000);
+  // 8. FAQ Accordion Logic
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const answer = question.nextElementSibling;
+      const isOpen = question.classList.contains('active');
+      
+      // Close all other open answers
+      faqQuestions.forEach(q => {
+        q.classList.remove('active');
+        q.nextElementSibling.style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        question.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
+    });
+  });
+
+  // 9. Custom Cursor
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorOutline = document.querySelector('.cursor-outline');
+  
+  if (window.matchMedia("(pointer: fine)").matches && cursorDot && cursorOutline) {
+    window.addEventListener('mousemove', (e) => {
+      const posX = e.clientX;
+      const posY = e.clientY;
+      
+      cursorDot.style.left = `${posX}px`;
+      cursorDot.style.top = `${posY}px`;
+      
+      cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+      }, { duration: 500, fill: "forwards" });
+    });
+
+    const hoverElements = document.querySelectorAll('a, button, .magnetic, .brand-card, .case-card');
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
+    });
+  }
+
+  // 8. Magnetic Buttons
+  const magneticElements = document.querySelectorAll('.magnetic');
+  magneticElements.forEach(elem => {
+    elem.addEventListener('mousemove', (e) => {
+      const rect = elem.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      elem.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      elem.style.transition = `transform 0.1s ease`;
+    });
+    elem.addEventListener('mouseleave', () => {
+      elem.style.transform = 'translate(0px, 0px)';
+      elem.style.transition = `transform 0.3s ease`;
+    });
+  });
 });

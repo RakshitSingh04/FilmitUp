@@ -185,7 +185,7 @@ h1, h2, h3, h4 {
 
 /* Hero Section */
 .hero {
-  padding-top: 120px;
+  padding-top: 80px;
   min-height: 80vh;
   display: flex;
   align-items: center;
@@ -203,6 +203,8 @@ h1, h2, h3, h4 {
 
 .hero-content {
   flex: 1;
+  text-align: left;
+  transform: translateY(40px);
 }
 
 .agency-title {
@@ -221,6 +223,7 @@ h1, h2, h3, h4 {
   font-size: 1.1rem;
   color: var(--color-text-muted);
   max-width: 500px;
+  margin-bottom: 2rem;
 }
 
 .hero-visual {
@@ -244,7 +247,7 @@ h1, h2, h3, h4 {
   max-width: 100%;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  animation: float 6s ease-in-out infinite;
+  transform: translateY(30px);
 }
 
 @keyframes float {
@@ -419,20 +422,28 @@ h1, h2, h3, h4 {
 
 .brand-card {
   background-color: #fff;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 100px;
+  min-height: 140px;
   color: var(--color-text-dark);
   font-weight: 700;
   transition: transform 0.3s;
+  overflow: hidden;
 }
 
 .brand-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.brand-logo {
+  max-width: 100%;
+  max-height: 110px;
+  object-fit: contain;
 }
 
 /* Stats */
@@ -719,6 +730,27 @@ h1, h2, h3, h4 {
   visibility: hidden;
 }
 
+/* Floating Instagram Button */
+.floating-ig {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  box-shadow: 0 4px 15px rgba(220, 39, 67, 0.4);
+  transition: transform 0.3s;
+}
+.floating-ig:hover {
+  transform: scale(1.1);
+}
+
 /* Floating WhatsApp Button */
 .floating-wa {
   position: fixed;
@@ -786,5 +818,59 @@ h1, h2, h3, h4 {
     height: 60px;
     background-color: rgba(209, 126, 69, 0.1);
     border-color: var(--color-accent);
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  section {
+    padding: 3rem 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .hero {
+    padding-top: 100px;
+    min-height: auto;
+  }
+  
+  .hero-content {
+    text-align: center;
+    transform: none !important;
+  }
+  
+  .agency-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-img {
+    transform: none !important;
+    margin-top: 1rem;
+  }
+  
+  .hero-desc {
+    margin: 0 auto 1.5rem auto !important;
+  }
+
+  .floating-wa, .floating-ig {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .floating-wa {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .floating-ig {
+    bottom: 75px;
+    right: 20px;
+  }
+  
+  .floating-wa svg, .floating-ig svg {
+    width: 24px;
+    height: 24px;
   }
 }

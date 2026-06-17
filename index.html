@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Import Inter and Playfair Display (for that agency feel) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
@@ -25,7 +25,8 @@
           <li><a href="#expertise" class="magnetic">Our Expertise</a></li>
           <li><a href="#brands" class="magnetic">Top Brands</a></li>
           <li><a href="#case-studies" class="magnetic">Case Studies</a></li>
-          <li><a href="#contact" class="btn-ghost btn-light magnetic">Let's Talk</a></li>
+          <li><a href="#contact" class="nav-cta magnetic">Let's Talk</a></li>
+          <div class="nav-indicator"></div>
         </ul>
         <div class="hamburger" id="hamburger">
           <span></span><span></span><span></span>
@@ -48,15 +49,21 @@
         <div class="hero-container">
           <div class="hero-content">
             <h1 class="agency-title">
-              <div class="reveal-line"><span class="reveal-text"><strong>CREATIVE</strong></span></div>
-              <div class="reveal-line"><span class="reveal-text"><strong>PRODUCTION</strong></span></div>
-              <div class="reveal-line"><span class="reveal-text"><strong>HOUSE</strong></span></div>
+              <div class="reveal-line"><span class="reveal-text"><strong>WE CREATE</strong></span></div>
+              <div class="reveal-line"><span class="reveal-text"><strong>CINEMATIC</strong></span></div>
+              <div class="reveal-line"><span class="reveal-text"><strong>EXPERIENCES</strong></span></div>
+              <div class="title-line"></div>
             </h1>
-            <p class="hero-desc gs-reveal-up">Boost your brand's digital presence with beautiful visuals, cinematic storytelling, and engaging experiences.</p>
-            <a href="#who-we-are" class="btn-ghost btn-dark mt-2 magnetic">Watch Video</a>
+            <p class="hero-desc gs-reveal-up">From concept to screen — we craft visual stories that make brands unforgettable.</p>
+            <a href="#who-we-are" class="btn-cta btn-dark mt-2 magnetic">
+              Watch Our Reel <span class="play-icon">▶</span>
+            </a>
           </div>
           <div class="hero-visual gs-reveal-right">
-             <img src="/placeholder-1.png" alt="Creative Production" class="hero-img">
+             <div class="hero-img-wrapper">
+               <img src="/placeholder-1.png" alt="Cinematic Production" class="hero-img">
+               <div class="hero-img-shadow"></div>
+             </div>
           </div>
         </div>
       </section>
@@ -65,7 +72,7 @@
       <section id="who-we-are" class="who-we-are light-section">
         <div class="container gs-reveal-up">
           <p class="intro-text">
-            FILMITUP is a full-service creative production house with core expertise in Video, Design & Social Media. We emerged from our passion for visual storytelling and everything cinematic. A team of creative young souls who are passionate about their work and fuelled by our drive to come up with extraordinary ideas...
+            FILMITUP is a full-service creative production house with core expertise in Video, Design, Marketing & Social Media. We emerged from our passion for visual storytelling and everything cinematic. A team of creative young souls who are passionate about their work and fuelled by our drive to come up with extraordinary ideas...
           </p>
           <a href="#" class="read-more">read more</a>
         </div>
@@ -77,51 +84,85 @@
           <h2 class="section-title gs-reveal-up"><strong>Client</strong> Showcase</h2>
           <p class="section-subtitle mb-4 gs-reveal-up">A glimpse into our recent video production and creative campaigns.</p>
           
-          <div class="carousel-wrapper gs-reveal-up">
+          <div class="carousel-wrapper">
             <button class="carousel-btn prev-btn magnetic" aria-label="Previous slide">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
             
             <div class="carousel-track" id="client-carousel">
-              <!-- Generate 5 placeholder items -->
-              <div class="carousel-slide">
-                <div class="video-placeholder"></div>
-                <h3 class="client-name mt-1">Video 1 Placeholder</h3>
+              <div class="carousel-slide slide-1">
+                <div class="card-gradient"></div>
+                <div class="card-overlay"></div>
+                <div class="reel-label">REEL</div>
+                <div class="play-btn-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <h3 class="client-name">Brand Film &mdash; Michelin</h3>
               </div>
-              <div class="carousel-slide">
-                <div class="video-placeholder"></div>
-                <h3 class="client-name mt-1">Video 2 Placeholder</h3>
+              <div class="carousel-slide slide-2">
+                <div class="card-gradient"></div>
+                <div class="card-overlay"></div>
+                <div class="reel-label">REEL</div>
+                <div class="play-btn-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <h3 class="client-name">Product Shoot &mdash; Dr. Joos</h3>
               </div>
-              <div class="carousel-slide">
-                <div class="video-placeholder"></div>
-                <h3 class="client-name mt-1">Video 3 Placeholder</h3>
+              <div class="carousel-slide slide-3">
+                <div class="card-gradient"></div>
+                <div class="card-overlay"></div>
+                <div class="reel-label">REEL</div>
+                <div class="play-btn-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <h3 class="client-name">Event Reel &mdash; Wedding Pulav</h3>
               </div>
-              <div class="carousel-slide">
-                <div class="video-placeholder"></div>
-                <h3 class="client-name mt-1">Video 4 Placeholder</h3>
+              <div class="carousel-slide slide-4">
+                <div class="card-gradient"></div>
+                <div class="card-overlay"></div>
+                <div class="reel-label">REEL</div>
+                <div class="play-btn-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <h3 class="client-name">Social Campaign &mdash; Nazara</h3>
               </div>
-              <div class="carousel-slide">
-                <div class="video-placeholder"></div>
-                <h3 class="client-name mt-1">Video 5 Placeholder</h3>
+              <div class="carousel-slide slide-5">
+                <div class="card-gradient"></div>
+                <div class="card-overlay"></div>
+                <div class="reel-label">REEL</div>
+                <div class="play-btn-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <h3 class="client-name">Documentary &mdash; Hiranandani</h3>
               </div>
             </div>
 
             <button class="carousel-btn next-btn magnetic" aria-label="Next slide">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
+            
+            <div class="carousel-indicators" id="carousel-dots"></div>
+            
+            <div class="carousel-progress">
+              <div class="progress-fill"></div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Our Expertise (Dark) -->
       <section id="expertise" class="expertise dark-section">
+        <div class="expertise-watermark">EXPERTISE</div>
         <div class="container">
-          <h2 class="section-title gs-reveal-up"><strong>Our</strong> Expertise</h2>
-          <p class="section-subtitle gs-reveal-up">We combine creativity with strategy to build visual experiences that transform businesses.</p>
+          <h2 class="section-title gs-reveal-up text-accent"><strong>Our</strong> Expertise</h2>
+          <p class="section-subtitle gs-reveal-up">From concept shoots to viral campaigns &mdash; we handle every frame of your brand's visual journey.</p>
           
-          <div class="expertise-grid gs-reveal-up">
+          <div class="expertise-grid">
             <!-- Col 1 -->
             <div class="expertise-col">
+              <div class="col-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              </div>
               <h3 class="col-title">Content Production</h3>
               <ul class="expertise-list">
                 <li><a href="#">Professional Videography</a></li>
@@ -135,6 +176,9 @@
             </div>
             <!-- Col 2 -->
             <div class="expertise-col">
+              <div class="col-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+              </div>
               <h3 class="col-title">Social Media Mgt.</h3>
               <ul class="expertise-list">
                 <li><a href="#">Account Management</a></li>
@@ -145,6 +189,9 @@
             </div>
             <!-- Col 3 -->
             <div class="expertise-col">
+              <div class="col-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.06 0 1.95-.82 2-1.88.02-.38-.1-.75-.34-1.04-.26-.3-.42-.7-.42-1.12 0-.88.72-1.6 1.6-1.6h2.25c2.71 0 4.91-2.2 4.91-4.91C22 7.15 17.52 2 12 2z"></path><circle cx="6.5" cy="11.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="13.5" cy="5.5" r="1.5"></circle><circle cx="17.5" cy="9.5" r="1.5"></circle></svg>
+              </div>
               <h3 class="col-title">Creative Design</h3>
               <ul class="expertise-list">
                 <li><a href="#">Graphic Design</a></li>
@@ -153,6 +200,9 @@
             </div>
             <!-- Col 4 -->
             <div class="expertise-col">
+              <div class="col-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
               <h3 class="col-title">Web Development</h3>
               <ul class="expertise-list">
                 <li><a href="#">Business Websites</a></li>
@@ -162,6 +212,9 @@
             </div>
             <!-- Col 5 -->
             <div class="expertise-col">
+              <div class="col-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              </div>
               <h3 class="col-title">Performance Mktg.</h3>
               <ul class="expertise-list">
                 <li><a href="#">Meta Ads (FB & Insta)</a></li>
@@ -178,60 +231,56 @@
           <h2 class="section-title gs-reveal-up"><strong>Top</strong> Brands</h2>
           <p class="section-subtitle mb-4 gs-reveal-up">Here's a look at the clients we've worked with. If you'd like to work with the best creative agency too, we'd love to hear from you.</p>
           
-          <div class="brands-grid gs-reveal-up">
-            <div class="brand-card">
-              <img src="/brands/dr-joos.jpg" alt="Dr. Joos" class="brand-logo" />
+          <div class="marquee-container">
+            <div class="marquee-row left">
+              <!-- Duplicate contents twice for infinite scroll -->
+              <div class="marquee-content">
+                <div class="brand-card"><img src="/brands/dr-joos.jpg" alt="Dr. Joos" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/colors-packaging.jpg" alt="Colors Packaging" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/annpurna.jpg" alt="Annpurna" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/ekdanteshwar.jpg" alt="Ekdanteshwar Caterers" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/hiranandani.jpg" alt="Hiranandani" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/kaviha.jpg" alt="Kaviha" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/sundowner.png" alt="Sundowner Farm" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/nazara.jpg" alt="Nazara" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/nm-group.png" alt="Niket Mangal Group" class="brand-logo" /></div>
+              </div>
+              <div class="marquee-content" aria-hidden="true">
+                <div class="brand-card"><img src="/brands/dr-joos.jpg" alt="Dr. Joos" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/colors-packaging.jpg" alt="Colors Packaging" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/annpurna.jpg" alt="Annpurna" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/ekdanteshwar.jpg" alt="Ekdanteshwar Caterers" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/hiranandani.jpg" alt="Hiranandani" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/kaviha.jpg" alt="Kaviha" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/sundowner.png" alt="Sundowner Farm" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/nazara.jpg" alt="Nazara" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/nm-group.png" alt="Niket Mangal Group" class="brand-logo" /></div>
+              </div>
             </div>
-            <div class="brand-card">
-              <img src="/brands/colors-packaging.jpg" alt="Colors Packaging" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/annpurna.jpg" alt="Annpurna" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/ekdanteshwar.jpg" alt="Ekdanteshwar Caterers" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/hiranandani.jpg" alt="Hiranandani" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/kaviha.jpg" alt="Kaviha" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/sundowner.png" alt="Sundowner Farm" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/nazara.jpg" alt="Nazara" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/nm-group.png" alt="Niket Mangal Group" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/michelin.jpg" alt="Michelin" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/raagi.jpg" alt="Raagi" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/kenys-salon.jpg" alt="Keny's Salon" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/shreedhi.png" alt="Shreedhi" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/tinkus.png" alt="Tinku's" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/shot-story.jpg" alt="The Shot Story" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/wedding-pulav.jpg" alt="The Wedding Pulav" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/vaayu.jpg" alt="Vaayu" class="brand-logo" />
-            </div>
-            <div class="brand-card">
-              <img src="/brands/yagana.jpg" alt="Yagana.co" class="brand-logo" />
+            
+            <div class="marquee-row right">
+              <div class="marquee-content">
+                <div class="brand-card"><img src="/brands/michelin.jpg" alt="Michelin" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/raagi.jpg" alt="Raagi" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/kenys-salon.jpg" alt="Keny's Salon" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/shreedhi.png" alt="Shreedhi" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/tinkus.png" alt="Tinku's" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/shot-story.jpg" alt="The Shot Story" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/wedding-pulav.jpg" alt="The Wedding Pulav" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/vaayu.jpg" alt="Vaayu" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/yagana.jpg" alt="Yagana.co" class="brand-logo" /></div>
+              </div>
+              <div class="marquee-content" aria-hidden="true">
+                <div class="brand-card"><img src="/brands/michelin.jpg" alt="Michelin" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/raagi.jpg" alt="Raagi" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/kenys-salon.jpg" alt="Keny's Salon" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/shreedhi.png" alt="Shreedhi" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/tinkus.png" alt="Tinku's" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/shot-story.jpg" alt="The Shot Story" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/wedding-pulav.jpg" alt="The Wedding Pulav" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/vaayu.jpg" alt="Vaayu" class="brand-logo" /></div>
+                <div class="brand-card"><img src="/brands/yagana.jpg" alt="Yagana.co" class="brand-logo" /></div>
+              </div>
             </div>
           </div>
           <div class="text-center mt-4">
@@ -242,22 +291,46 @@
 
       <!-- Stats Section (Light) -->
       <section class="stats light-section">
-        <div class="container stats-grid gs-reveal-up">
+        <div class="container stats-grid">
           <div class="stat-item">
-            <h3 class="counter" data-target="80">0</h3><span class="stat-suffix">+</span>
-            <p>Projects</p>
+            <div class="stat-ring">
+              <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="45"/><circle class="progress" cx="50" cy="50" r="45"/></svg>
+              <div class="stat-content">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                <div class="number-wrap"><h3 class="counter" data-target="80">0</h3><span class="stat-suffix">+</span></div>
+                <p>Projects</p>
+              </div>
+            </div>
           </div>
           <div class="stat-item">
-            <h3 class="counter" data-target="4">0</h3><span class="stat-suffix">M+</span>
-            <p>Views</p>
+            <div class="stat-ring">
+              <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="45"/><circle class="progress" cx="50" cy="50" r="45"/></svg>
+              <div class="stat-content">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                <div class="number-wrap"><h3 class="counter" data-target="4">0</h3><span class="stat-suffix">M+</span></div>
+                <p>Views</p>
+              </div>
+            </div>
           </div>
           <div class="stat-item">
-            <h3 class="counter" data-target="1100">0</h3><span class="stat-suffix">+</span>
-            <p>Working Days</p>
+            <div class="stat-ring">
+              <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="45"/><circle class="progress" cx="50" cy="50" r="45"/></svg>
+              <div class="stat-content">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <div class="number-wrap"><h3 class="counter" data-target="1100">0</h3><span class="stat-suffix">+</span></div>
+                <p>Working Days</p>
+              </div>
+            </div>
           </div>
           <div class="stat-item">
-            <h3 class="counter" data-target="30">0</h3><span class="stat-suffix">+</span>
-            <p>Clients</p>
+            <div class="stat-ring">
+              <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="45"/><circle class="progress" cx="50" cy="50" r="45"/></svg>
+              <div class="stat-content">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <div class="number-wrap"><h3 class="counter" data-target="30">0</h3><span class="stat-suffix">+</span></div>
+                <p>Clients</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -267,20 +340,26 @@
         <div class="container">
           <h2 class="section-title gs-reveal-up"><strong>Case</strong> Studies</h2>
           
-          <div class="case-grid gs-reveal-up">
-            <div class="case-card magnetic">
-              <img src="/placeholder-2.png" alt="Case Study 1">
+          <div class="case-grid">
+            <div class="case-card gs-reveal-side" data-side="left">
+              <div class="case-number">01</div>
+              <div class="case-img-wrap magnetic">
+                <img src="/placeholder-2.png" alt="Case Study 1">
+              </div>
               <div class="case-info">
-                <h3>Viral Campaign</h3>
-                <p>A viral reel campaign that generated over 1M+ organic views.</p>
+                <h3>Michelin — Viral Reel Campaign</h3>
+                <p>A cinematic social campaign that generated over 1M+ organic views and 50K+ shares across platforms.</p>
                 <a href="#" class="read-more mt-1">read more</a>
               </div>
             </div>
-            <div class="case-card magnetic">
-              <img src="/placeholder-3.png" alt="Case Study 2">
+            <div class="case-card gs-reveal-side" data-side="right">
+              <div class="case-number">02</div>
+              <div class="case-img-wrap magnetic">
+                <img src="/placeholder-3.png" alt="Case Study 2">
+              </div>
               <div class="case-info">
-                <h3>Brand Identity</h3>
-                <p>Complete visual overhaul and cinematic documentary for a 10-year brand.</p>
+                <h3>Hiranandani — Brand Documentary</h3>
+                <p>A complete visual identity overhaul including a 4-minute cinematic brand film for their 10th anniversary.</p>
                 <a href="#" class="read-more mt-1">read more</a>
               </div>
             </div>
@@ -318,19 +397,36 @@
 
       <!-- Contact Section (Dark) -->
       <section id="contact" class="contact dark-section">
-        <div class="container">
+        <div class="contact-watermark">LET'S CREATE SOMETHING EXTRAORDINARY</div>
+        <div class="container relative-container">
           <h2 class="section-title gs-reveal-up"><strong>Let's</strong> Talk</h2>
           <p class="section-subtitle gs-reveal-up">Let's discuss your project at <a href="mailto:Filmitupstudios@gmail.com" class="text-accent">Filmitupstudios@gmail.com</a></p>
           
           <div class="contact-wrapper gs-reveal-up mt-4">
             <form id="contact-form" class="agency-form">
               <div class="form-row">
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
+                <div class="form-group">
+                  <input type="text" id="name" placeholder=" " required>
+                  <label for="name">Name</label>
+                  <div class="input-line"></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" id="email" placeholder=" " required>
+                  <label for="email">Email</label>
+                  <div class="input-line"></div>
+                </div>
               </div>
-              <input type="text" placeholder="Subject">
-              <textarea placeholder="Message" rows="4" required></textarea>
-              <button type="submit" class="btn-ghost btn-light submit-btn">Submit</button>
+              <div class="form-group">
+                <input type="text" id="subject" placeholder=" ">
+                <label for="subject">Subject</label>
+                <div class="input-line"></div>
+              </div>
+              <div class="form-group">
+                <textarea id="message" placeholder=" " rows="4" required></textarea>
+                <label for="message">Message</label>
+                <div class="input-line"></div>
+              </div>
+              <button type="submit" class="btn-primary submit-btn pulse-hover">Submit</button>
             </form>
           </div>
         </div>
@@ -340,13 +436,13 @@
       <footer class="footer">
         <div class="container footer-content">
           <div class="footer-links">
-            <a href="#">Digital Marketing Services</a>
+            <a href="#">Marketing services</a>
             <a href="#">Design Services</a>
             <a href="#">Video Production</a>
-            <a href="#">Social Media Marketing</a>
+            <a href="#">Social Media Management</a>
           </div>
           <div class="footer-social" style="margin-top: 1rem; margin-bottom: 2rem; text-align: center;">
-            <a href="https://www.instagram.com/filmitup.media?igsh=MWkwZjZ3aXN4NjVtYg==" target="_blank" class="text-accent magnetic" style="font-size: 1.1rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: transform 0.3s;">
+            <a href="https://www.instagram.com/filmitup.media?igsh=MWkwZjZ3aXN4NjVtYg==" target="_blank" class="text-accent magnetic" style="font-size: 1.1rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: transform 0.3s; color: #8b0000 !important;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               Instagram
             </a>

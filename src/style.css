@@ -1,13 +1,13 @@
 :root {
-  --color-light-bg: #fafafa;
-  --color-light-alt: #f2f0ed;
-  --color-dark-bg: #0a0a0a;
-  --color-dark-alt: #161616;
-  --color-accent: #c97a3a;
-  --color-accent-light: #e8a96a;
-  --color-text-dark: #1a1a1a;
-  --color-text-light: #f0ece8;
-  --color-text-muted: #8a8580;
+  --color-light-bg: #F3EFE6;
+  --color-light-alt: #E6E1D3;
+  --color-dark-bg: #090909;
+  --color-dark-alt: #1A1A1A;
+  --color-accent: #591117;
+  --color-accent-light: #B32530;
+  --color-text-dark: #090909;
+  --color-text-light: #F3EFE6;
+  --color-text-muted: #9C9588;
   
   --font-main: 'Sora', sans-serif;
   --font-heading: 'Playfair Display', serif; /* Agency style heading fallback */
@@ -211,9 +211,8 @@ h1, h2, h3, h4 {
 .navbar.nav-dark-text .nav-links a {
   color: var(--color-text-dark);
 }
-.navbar.nav-dark-text .logo .nav-logo-img,
-.navbar.nav-dark-text .hamburger span {
-  filter: invert(1);
+.navbar.nav-dark-text .logo .nav-logo-img {
+  content: url('/logo-dark.png');
 }
 .navbar.nav-dark-text .hamburger span {
   background-color: var(--color-text-dark);
@@ -221,9 +220,8 @@ h1, h2, h3, h4 {
 .navbar.nav-scrolled.nav-dark-text .nav-links a {
   color: var(--color-text-light);
 }
-.navbar.nav-scrolled.nav-dark-text .logo .nav-logo-img,
-.navbar.nav-scrolled.nav-dark-text .hamburger span {
-  filter: invert(0);
+.navbar.nav-scrolled.nav-dark-text .logo .nav-logo-img {
+  content: url('/logo.png');
 }
 .navbar.nav-scrolled.nav-dark-text .hamburger span {
   background-color: var(--color-text-light);
@@ -456,13 +454,13 @@ h1, h2, h3, h4 {
 }
 
 .hero-content {
-  flex: 1;
+  flex: 0 1 40%;
   text-align: left;
   transform: translateY(40px);
 }
 
 .agency-title {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 300;
   line-height: 1.1;
   margin-bottom: 1.5rem;
@@ -489,7 +487,7 @@ h1, h2, h3, h4 {
 }
 
 .hero-visual {
-  flex: 1;
+  flex: 0 1 60%;
   display: flex;
   justify-content: center;
   perspective: 1000px;
@@ -508,7 +506,8 @@ h1, h2, h3, h4 {
 
 .hero-img-wrapper {
   position: relative;
-  width: 100%;
+  width: 150%;
+  left: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -974,7 +973,7 @@ h1, h2, h3, h4 {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 12px;
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -990,8 +989,8 @@ h1, h2, h3, h4 {
 }
 
 .brand-logo {
-  max-width: 85%;
-  max-height: 80px;
+  max-width: 95%;
+  max-height: 95px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }

@@ -145,9 +145,17 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (isOpening) {
       gsap.fromTo(mobileLinksItems, 
-        { x: 30, opacity: 0 }, 
-        { x: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
+        { y: 30, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power4.out', delay: 0.1 }
       );
+    } else {
+      gsap.to(mobileLinksItems, {
+        y: -20,
+        opacity: 0,
+        duration: 0.3,
+        stagger: 0.05,
+        ease: 'power3.in'
+      });
     }
   });
 
@@ -155,6 +163,11 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
       mobileMenu.classList.remove('open');
+      gsap.to(mobileLinksItems, {
+        opacity: 0,
+        y: -10,
+        duration: 0.2
+      });
     });
   });
 
@@ -409,6 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Helper to play only the active video
     const playActiveVideo = (index) => {
       slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
         const video = slide.querySelector('video');
         if (video) {
           if (i === index) {
@@ -420,6 +434,17 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     };
 
+    // Helper to update sliding dot indicator position
+    const updateDotIndicator = (index) => {
+      const dots = dotContainer.querySelectorAll('.dot');
+      const activeDot = dotContainer.querySelector('.dot-indicator');
+      if (activeDot && dots[index]) {
+        const firstDotOffset = dots[0].offsetLeft;
+        const currentDotOffset = dots[index].offsetLeft;
+        activeDot.style.transform = `translateX(${currentDotOffset - firstDotOffset}px)`;
+      }
+    };
+
     // Helper to update UI (dots, scroll position)
     const updateCarouselUI = (index, smooth = true) => {
       activeIndex = index;
@@ -429,6 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === index);
       });
+      updateDotIndicator(index);
 
       // Scroll to active slide (clamped by browser automatically)
       const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
@@ -453,6 +479,11 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       dotContainer.appendChild(dot);
     });
+
+    // Create the sliding dot indicator element
+    const indicator = document.createElement('div');
+    indicator.classList.add('dot-indicator');
+    dotContainer.appendChild(indicator);
 
     // Allow clicking/tapping a slide to focus/play it (creates mobile user gesture)
     slides.forEach((slide, i) => {
@@ -485,6 +516,7 @@ document.addEventListener("DOMContentLoaded", () => {
           dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === scrollIndex);
           });
+          updateDotIndicator(scrollIndex);
           playActiveVideo(scrollIndex);
         }
       }, 66);

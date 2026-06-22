@@ -22,8 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.ticker.add((time) => {
     lenis.raf(time * 1000);
   });
-  
-  gsap.ticker.lagSmoothing(0);
 
   // Preloader Animation
   const preloaderTl = gsap.timeline();
@@ -403,6 +401,46 @@ document.addEventListener("DOMContentLoaded", () => {
   
   if (track && prevBtn && nextBtn && dotContainer) {
     const slides = document.querySelectorAll('.carousel-slide');
+    let activeIndex = 0;
+    let autoSlideTween;
+    let isProgrammaticScroll = false;
+    let scrollTimeout;
+
+    // Helper to play only the active video
+    const playActiveVideo = (index) => {
+      slides.forEach((slide, i) => {
+        const video = slide.querySelector('video');
+        if (video) {
+          if (i === index) {
+            video.play().catch(e => console.log('Video play prevented:', e));
+          } else {
+            video.pause();
+          }
+        }
+      });
+    };
+
+    // Helper to update UI (dots, scroll position)
+    const updateCarouselUI = (index, smooth = true) => {
+      activeIndex = index;
+      
+      // Update dots
+      const dots = dotContainer.querySelectorAll('.dot');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+
+      // Scroll to active slide (clamped by browser automatically)
+      const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
+      isProgrammaticScroll = true;
+      track.scrollTo({
+        left: slideWidth * index,
+        behavior: smooth ? 'smooth' : 'auto'
+      });
+
+      // Play video
+      playActiveVideo(index);
+    };
     
     // Generate dots
     slides.forEach((_, i) => {
@@ -410,25 +448,37 @@ document.addEventListener("DOMContentLoaded", () => {
       dot.classList.add('dot');
       if (i === 0) dot.classList.add('active');
       dot.addEventListener('click', () => {
-        const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
-        track.scrollTo({ left: slideWidth * i, behavior: 'smooth' });
+        updateCarouselUI(i);
         resetProgress();
       });
       dotContainer.appendChild(dot);
     });
     
-    const dots = document.querySelectorAll('.dot');
-    
-    // Update active dot on scroll
+    // Listen to manual scroll to update activeIndex (clamped to max visible index)
+    let isScrolling;
     track.addEventListener('scroll', () => {
-      const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
-      const index = Math.round(track.scrollLeft / slideWidth);
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
+      if (isProgrammaticScroll) {
+        window.clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          isProgrammaticScroll = false;
+        }, 150);
+        return;
+      }
+      window.clearTimeout(isScrolling);
+      isScrolling = setTimeout(() => {
+        const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
+        const scrollIndex = Math.round(track.scrollLeft / slideWidth);
+        if (scrollIndex !== activeIndex && scrollIndex < slides.length) {
+          activeIndex = scrollIndex;
+          // Only update dot and video, don't trigger scrollTo to avoid scroll fighting
+          const dots = dotContainer.querySelectorAll('.dot');
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === scrollIndex);
+          });
+          playActiveVideo(scrollIndex);
+        }
+      }, 66);
     });
-
-    let autoSlideTween;
     
     const resetProgress = () => {
       if (autoSlideTween) autoSlideTween.kill();
@@ -436,43 +486,57 @@ document.addEventListener("DOMContentLoaded", () => {
       
       autoSlideTween = gsap.to(progressFill, {
         width: '100%',
-        duration: 3,
+        duration: 4, // 4 seconds per video
         ease: 'none',
         onComplete: () => {
-          if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-            track.scrollTo({ left: 0, behavior: 'smooth' });
-          } else {
-            const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
-            track.scrollBy({ left: slideWidth, behavior: 'smooth' });
-          }
+          const nextIndex = (activeIndex + 1) % slides.length;
+          updateCarouselUI(nextIndex);
           resetProgress();
         }
       });
     };
     
+    // Intersection Observer for the carousel wrapper to pause video when offscreen
+    const carouselObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) {
+          // Pause active video when carousel is offscreen
+          slides.forEach(slide => {
+            const video = slide.querySelector('video');
+            if (video) video.pause();
+          });
+        } else {
+          // Play active video when carousel comes back onscreen
+          playActiveVideo(activeIndex);
+        }
+      });
+    }, { threshold: 0.1 });
+    carouselObserver.observe(document.querySelector('.carousel-wrapper'));
+
     // Start auto slide
+    updateCarouselUI(0, false);
     resetProgress();
     
     prevBtn.addEventListener('click', () => {
-      const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
-      track.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+      const prevIndex = (activeIndex - 1 + slides.length) % slides.length;
+      updateCarouselUI(prevIndex);
       resetProgress();
     });
     
     nextBtn.addEventListener('click', () => {
-      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-        track.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
-        track.scrollBy({ left: slideWidth, behavior: 'smooth' });
-      }
+      const nextIndex = (activeIndex + 1) % slides.length;
+      updateCarouselUI(nextIndex);
       resetProgress();
     });
 
     const carouselWrapper = document.querySelector('.carousel-wrapper');
     if (carouselWrapper) {
-      carouselWrapper.addEventListener('mouseenter', () => autoSlideTween.pause());
-      carouselWrapper.addEventListener('mouseleave', () => autoSlideTween.play());
+      carouselWrapper.addEventListener('mouseenter', () => {
+        if (autoSlideTween) autoSlideTween.pause();
+      });
+      carouselWrapper.addEventListener('mouseleave', () => {
+        if (autoSlideTween) autoSlideTween.play();
+      });
     }
   }
 

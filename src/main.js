@@ -453,6 +453,16 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       dotContainer.appendChild(dot);
     });
+
+    // Allow clicking/tapping a slide to focus/play it (creates mobile user gesture)
+    slides.forEach((slide, i) => {
+      slide.addEventListener('click', () => {
+        if (activeIndex !== i) {
+          updateCarouselUI(i);
+          resetProgress();
+        }
+      });
+    });
     
     // Listen to manual scroll to update activeIndex (clamped to max visible index)
     let isScrolling;

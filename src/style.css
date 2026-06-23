@@ -625,7 +625,6 @@ h1, h2, h3, h4 {
   padding: 1rem 0 3rem 0; /* Extra bottom padding */
   width: 100%;
   overscroll-behavior-x: contain; /* Prevents whole page swipe when scrolling carousel */
-  touch-action: pan-y pinch-zoom;
 }
 .carousel-track::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
@@ -1878,7 +1877,7 @@ h1, h2, h3, h4 {
   }
 
   .carousel-slide {
-    flex: 0 0 85%;
+    flex: 0 0 100%;
     scroll-snap-align: center;
     opacity: 1;
     transform: scale(1);

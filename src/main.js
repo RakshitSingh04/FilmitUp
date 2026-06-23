@@ -534,7 +534,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       autoSlideTween = gsap.to(progressFill, {
         width: '100%',
-        duration: 4, // 4 seconds per video
+        duration: 15, // 15 seconds per video
         ease: 'none',
         onComplete: () => {
           const nextIndex = (activeIndex + 1) % slides.length;

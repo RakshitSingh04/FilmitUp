@@ -999,33 +999,60 @@ h1, h2, h3, h4 {
 }
 
 .brand-card {
-  background: #ffffff;
-  border: none;
-  border-radius: 12px;
-  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 110px;
-  width: 180px;
-  transition: all 0.3s ease;
+  height: 120px;
+  width: 200px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--color-accent), transparent, var(--color-accent-light));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 
 .brand-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(255,255,255,0.15);
+  transform: translateY(-10px) scale(1.05);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 35px rgba(230, 0, 35, 0.15);
+}
+
+.brand-card:hover::after {
+  opacity: 1;
 }
 
 .brand-logo {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transition: transform 0.3s ease;
+  transition: all 0.4s ease;
+  filter: invert(1) hue-rotate(180deg) brightness(1.2) contrast(1.1);
+  mix-blend-mode: screen;
 }
 
 .brand-card:hover .brand-logo {
-  transform: scale(1.05);
+  transform: scale(1.1);
+  filter: invert(1) hue-rotate(180deg) brightness(1.5) drop-shadow(0 0 10px rgba(255,255,255,0.3));
 }
 
 /* Stats Section */

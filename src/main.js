@@ -462,11 +462,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       updateDotIndicator(index);
 
-      // Scroll to active slide (clamped by browser automatically)
-      const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
+      // Scroll to active slide precisely
+      const trackPaddingLeft = parseInt(window.getComputedStyle(track).paddingLeft || 0);
+      const targetScroll = slides[index].offsetLeft - track.offsetLeft - trackPaddingLeft;
+      
       isProgrammaticScroll = true;
       track.scrollTo({
-        left: slideWidth * index,
+        left: targetScroll,
         behavior: smooth ? 'smooth' : 'auto'
       });
 
@@ -525,6 +527,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             updateDotIndicator(scrollIndex);
             playActiveVideo(scrollIndex);
+            resetProgress();
           }
           scrollTicking = false;
         });

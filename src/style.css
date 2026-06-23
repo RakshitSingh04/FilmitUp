@@ -999,27 +999,27 @@ h1, h2, h3, h4 {
 }
 
 .brand-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #ffffff;
+  border: none;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 0.75rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 120px;
-  width: 200px;
+  height: 110px;
+  width: 180px;
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
 
 .brand-card:hover {
-  border-color: rgba(255,255,255,0.2);
-  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(255,255,255,0.15);
 }
 
 .brand-logo {
-  max-width: 95%;
-  max-height: 95px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -1915,8 +1915,14 @@ h1, h2, h3, h4 {
     animation-duration: 40s;
   }
   
+  .brand-card {
+    height: 90px;
+    width: 140px;
+    padding: 0.5rem;
+  }
+  
   .brand-logo {
-    max-height: 60px;
+    max-height: 100%;
   }
 
   .floating-wa, .floating-ig {

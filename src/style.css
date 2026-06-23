@@ -1876,12 +1876,22 @@ h1, h2, h3, h4 {
     justify-content: center;
   }
 
+  .carousel-wrapper {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+  
+  .carousel-track {
+    padding: 1rem 16px 3rem 16px;
+  }
+
   .carousel-slide {
-    flex: 0 0 100%;
+    flex: 0 0 calc(100% - 32px);
     scroll-snap-align: center;
     opacity: 1;
     transform: scale(1);
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: none !important;
   }
 
   .carousel-slide.active {

@@ -135,8 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // 2. Mobile Menu Toggle
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
-  const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
-  const mobileLinksItems = document.querySelectorAll('.mobile-nav-links li');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-links a, .mobile-cta');
+  const mobileLinksItems = document.querySelectorAll('.mobile-nav-links li, .mobile-cta-wrapper');
 
   hamburger.addEventListener('click', () => {
     const isOpening = !hamburger.classList.contains('active');
@@ -144,11 +144,15 @@ document.addEventListener("DOMContentLoaded", () => {
     mobileMenu.classList.toggle('open');
     
     if (isOpening) {
+      document.body.style.overflow = 'hidden';
+      lenis.stop();
       gsap.fromTo(mobileLinksItems, 
         { y: 30, opacity: 0 }, 
         { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power4.out', delay: 0.1 }
       );
     } else {
+      document.body.style.overflow = '';
+      lenis.start();
       gsap.to(mobileLinksItems, {
         y: -20,
         opacity: 0,
@@ -163,6 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
       mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+      lenis.start();
       gsap.to(mobileLinksItems, {
         opacity: 0,
         y: -10,
@@ -579,6 +585,12 @@ document.addEventListener("DOMContentLoaded", () => {
       carouselWrapper.addEventListener('mouseleave', () => {
         if (autoSlideTween) autoSlideTween.play();
       });
+      carouselWrapper.addEventListener('touchstart', () => {
+        if (autoSlideTween) autoSlideTween.pause();
+      }, { passive: true });
+      carouselWrapper.addEventListener('touchend', () => {
+        if (autoSlideTween) autoSlideTween.play();
+      }, { passive: true });
     }
   }
 

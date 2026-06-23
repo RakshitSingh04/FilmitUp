@@ -502,7 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     // Listen to manual scroll to update activeIndex (clamped to max visible index)
-    let isScrolling;
+    let scrollTicking = false;
     track.addEventListener('scroll', () => {
       if (isProgrammaticScroll) {
         window.clearTimeout(scrollTimeout);
@@ -511,21 +511,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 150);
         return;
       }
-      window.clearTimeout(isScrolling);
-      isScrolling = setTimeout(() => {
-        const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
-        const scrollIndex = Math.round(track.scrollLeft / slideWidth);
-        if (scrollIndex !== activeIndex && scrollIndex < slides.length) {
-          activeIndex = scrollIndex;
-          // Only update dot and video, don't trigger scrollTo to avoid scroll fighting
-          const dots = dotContainer.querySelectorAll('.dot');
-          dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === scrollIndex);
-          });
-          updateDotIndicator(scrollIndex);
-          playActiveVideo(scrollIndex);
-        }
-      }, 66);
+      
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          const slideWidth = slides[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 0);
+          const scrollIndex = Math.round(track.scrollLeft / slideWidth);
+          if (scrollIndex !== activeIndex && scrollIndex < slides.length) {
+            activeIndex = scrollIndex;
+            // Only update dot and video, don't trigger scrollTo to avoid scroll fighting
+            const dots = dotContainer.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+              dot.classList.toggle('active', i === scrollIndex);
+            });
+            updateDotIndicator(scrollIndex);
+            playActiveVideo(scrollIndex);
+          }
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
     });
     
     const resetProgress = () => {

@@ -223,19 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setTimeout(updateNavIndicator, 100);
 
-  // 4. Back to Top Button
-  const backToTopBtn = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
-  });
 
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
 
   // 5. Stats Section Entrance & Counter Animation
   ScrollTrigger.create({
@@ -749,4 +737,88 @@ document.addEventListener("DOMContentLoaded", () => {
     stagger: 0.2,
     ease: 'power3.out'
   });
+
+  // 12. Contact Form Submission via Web3Forms
+  const contactForm = document.getElementById('contact-form');
+  const toast = document.getElementById('toast-notification');
+  const toastTitle = toast?.querySelector('.toast-title');
+  const toastDesc = toast?.querySelector('.toast-desc');
+
+  let toastTimeout;
+
+  const showToast = (type, title, message) => {
+    if (!toast || !toastTitle || !toastDesc) return;
+
+    // Reset toast status classes and force reflow
+    toast.className = 'toast-notification';
+    void toast.offsetWidth;
+
+    // Set text contents
+    toastTitle.textContent = title;
+    toastDesc.textContent = message;
+
+    // Add show and type classes
+    toast.classList.add('show', type);
+
+    // Auto-hide toast after 5 seconds
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 5000);
+  };
+
+  if (contactForm && toast) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Check honeypot
+      const botcheck = contactForm.querySelector('input[name="botcheck"]');
+      if (botcheck && botcheck.checked) {
+        return; // Silent block for bots
+      }
+
+      const submitBtn = contactForm.querySelector('.submit-btn');
+      const originalBtnText = submitBtn.innerHTML;
+
+      // Disable button & show loading spinner
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="loader-spinner"></span> Sending...';
+
+      const formData = new FormData(contactForm);
+      const formObject = Object.fromEntries(formData);
+      
+      // Inject access key dynamically from environment variable
+      formObject.access_key = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '';
+
+      const json = JSON.stringify(formObject);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: json
+        });
+
+        const result = await response.json();
+
+        if (response.status === 200) {
+          showToast('success', 'Success', 'Your message has been sent successfully!');
+          contactForm.reset();
+        } else {
+          console.error(result);
+          showToast('error', 'Error', result.message || 'Something went wrong. Please try again.');
+        }
+      } catch (error) {
+        console.error(error);
+        showToast('error', 'Connection Error', 'Failed to reach the server. Please check your connection.');
+      } finally {
+        // Re-enable button & restore text
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }
+    });
+  }
 });

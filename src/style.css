@@ -2419,7 +2419,30 @@ h1, h2, h3, h4 {
   .estimator-wrapper {
     padding: 1.5rem;
   }
+  .step-title {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
   .options-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .option-card {
+    padding: 1rem 0.5rem;
+  }
+  .option-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .option-card h4 {
+    font-size: 0.9rem;
+  }
+  .option-card p {
+    font-size: 0.75rem;
+  }
+  .step-actions button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.8rem;
   }
 }

@@ -735,27 +735,7 @@ document.addEventListener("DOMContentLoaded", () => {
     startAutoSlide();
   }
 
-  // 8. FAQ Accordion Logic
-  const faqQuestions = document.querySelectorAll('.faq-question');
-  faqQuestions.forEach(question => {
-    question.addEventListener('click', () => {
-      const answer = question.nextElementSibling;
-      const isOpen = question.classList.contains('active');
-      
-      // Close all other open answers
-      faqQuestions.forEach(q => {
-        q.classList.remove('active');
-        q.parentElement.classList.remove('active');
-        q.nextElementSibling.style.maxHeight = null;
-      });
 
-      if (!isOpen) {
-        question.classList.add('active');
-        question.parentElement.classList.add('active');
-        answer.style.maxHeight = answer.scrollHeight + "px";
-      }
-    });
-  });
 
   // 9. Custom Cursor
   const cursorDot = document.querySelector('.cursor-dot:not(.ghost)');
@@ -926,20 +906,31 @@ document.addEventListener("DOMContentLoaded", () => {
       
       options.forEach(option => {
         option.addEventListener('click', () => {
-          // Deselect others in this step
-          options.forEach(opt => opt.classList.remove('selected'));
-          option.classList.add('selected');
+          const isMultiSelect = step.id === 'step-1';
+          
+          if (isMultiSelect) {
+            option.classList.toggle('selected');
+          } else {
+            // Deselect others in this step
+            options.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+          }
+          
+          // Collect all selected values for this step
+          const selectedOptions = Array.from(step.querySelectorAll('.option-card.selected'))
+                                       .map(opt => opt.getAttribute('data-value'));
           
           // Update hidden input
           const targetId = option.getAttribute('data-target');
-          const value = option.getAttribute('data-value');
           if (targetId) {
             const hiddenInput = document.getElementById(targetId);
-            if (hiddenInput) hiddenInput.value = value;
+            if (hiddenInput) hiddenInput.value = selectedOptions.join(', ');
           }
           
-          // Enable next button
-          if (nextBtn) nextBtn.disabled = false;
+          // Enable next button if at least one option is selected
+          if (nextBtn) {
+            nextBtn.disabled = selectedOptions.length === 0;
+          }
         });
       });
       

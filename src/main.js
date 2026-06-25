@@ -308,15 +308,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Parallax Depth for Section Titles
+  // Parallax Depth for Section Titles & Subtitles
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(pointer: fine)').matches) {
-    const parallaxTitles = document.querySelectorAll('.section-title');
-    parallaxTitles.forEach(title => {
-      gsap.to(title, {
-        y: 50,
+    const parallaxHeaders = document.querySelectorAll('.section-title, .section-subtitle');
+    parallaxHeaders.forEach(header => {
+      gsap.to(header, {
+        y: 30,
         ease: 'none',
         scrollTrigger: {
-          trigger: title.parentElement,
+          trigger: header.parentElement,
           start: 'top bottom',
           end: 'bottom top',
           scrub: true
@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Carousel Entrance Animation
+  // Carousel Entrance Animations
   ScrollTrigger.create({
     trigger: '.carousel-wrapper',
     start: "top 80%",
@@ -399,10 +399,19 @@ document.addEventListener("DOMContentLoaded", () => {
     once: true
   });
 
+  ScrollTrigger.create({
+    trigger: '.testimonials-carousel-wrapper',
+    start: "top 80%",
+    onEnter: () => {
+      gsap.fromTo('.testimonial-slide', { x: 80, autoAlpha: 0, scale: 0.9 }, { x: 0, autoAlpha: 1, scale: 1, stagger: 0.15, duration: 0.8, ease: 'power3.out' });
+    },
+    once: true
+  });
+
   // 7. Carousel Logic
   const track = document.getElementById('client-carousel');
-  const prevBtn = document.querySelector('.prev-btn');
-  const nextBtn = document.querySelector('.next-btn');
+  const prevBtn = document.querySelector('.carousel-wrapper .prev-btn');
+  const nextBtn = document.querySelector('.carousel-wrapper .next-btn');
   const dotContainer = document.getElementById('carousel-dots');
   const progressFill = document.querySelector('.progress-fill');
   
@@ -588,6 +597,143 @@ document.addEventListener("DOMContentLoaded", () => {
       }, { passive: true });
     }
   }
+  // Testimonials Carousel Logic
+  const tTrack = document.getElementById('testimonials-carousel');
+  const tPrevBtn = document.querySelector('.testimonials-carousel-btn.prev-btn');
+  const tNextBtn = document.querySelector('.testimonials-carousel-btn.next-btn');
+  const tDotContainer = document.getElementById('testimonials-carousel-dots');
+  
+  if (tTrack && tPrevBtn && tNextBtn && tDotContainer) {
+    const tSlides = tTrack.querySelectorAll('.testimonial-slide');
+    let tActiveIndex = 0;
+    let tIsProgrammaticScroll = false;
+    let tScrollTimeout;
+
+    // Helper to update sliding dot indicator position
+    const updateTDotIndicator = (index) => {
+      const dots = tDotContainer.querySelectorAll('.dot');
+      const activeDot = tDotContainer.querySelector('.dot-indicator');
+      if (activeDot && dots[index]) {
+        const firstDotOffset = dots[0].offsetLeft;
+        const currentDotOffset = dots[index].offsetLeft;
+        activeDot.style.transform = `translateX(${currentDotOffset - firstDotOffset}px)`;
+      }
+    };
+
+    // Helper to update UI (dots, scroll position)
+    const updateTestimonialsUI = (index, smooth = true) => {
+      tActiveIndex = index;
+      
+      // Update dots
+      const dots = tDotContainer.querySelectorAll('.dot');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      updateTDotIndicator(index);
+
+      // Scroll to active slide precisely
+      const trackPaddingLeft = parseInt(window.getComputedStyle(tTrack).paddingLeft || 0);
+      const targetScroll = tSlides[index].offsetLeft - tTrack.offsetLeft - trackPaddingLeft;
+      
+      tIsProgrammaticScroll = true;
+      tTrack.scrollTo({
+        left: targetScroll,
+        behavior: smooth ? 'smooth' : 'auto'
+      });
+    };
+    
+    // Generate dots
+    tSlides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        updateTestimonialsUI(i);
+      });
+      tDotContainer.appendChild(dot);
+    });
+
+    // Create the sliding dot indicator element
+    const indicator = document.createElement('div');
+    indicator.classList.add('dot-indicator');
+    tDotContainer.appendChild(indicator);
+
+    // Allow clicking/tapping a slide to focus/play it
+    tSlides.forEach((slide, i) => {
+      slide.addEventListener('click', () => {
+        if (tActiveIndex !== i) {
+          updateTestimonialsUI(i);
+        }
+      });
+    });
+    
+    // Listen to manual scroll to update activeIndex
+    let tScrollTicking = false;
+    tTrack.addEventListener('scroll', () => {
+      if (tIsProgrammaticScroll) {
+        window.clearTimeout(tScrollTimeout);
+        tScrollTimeout = setTimeout(() => {
+          tIsProgrammaticScroll = false;
+        }, 150);
+        return;
+      }
+      
+      if (!tScrollTicking) {
+        window.requestAnimationFrame(() => {
+          const slideWidth = tSlides[0].offsetWidth + parseInt(window.getComputedStyle(tTrack).gap || 0);
+          const scrollIndex = Math.round(tTrack.scrollLeft / slideWidth);
+          if (scrollIndex !== tActiveIndex && scrollIndex < tSlides.length) {
+            tActiveIndex = scrollIndex;
+            const dots = tDotContainer.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+              dot.classList.toggle('active', i === scrollIndex);
+            });
+            updateTDotIndicator(scrollIndex);
+          }
+          tScrollTicking = false;
+        });
+        tScrollTicking = true;
+      }
+    });
+    
+    // Start auto slide timer
+    let autoSlideInterval;
+    const startAutoSlide = () => {
+      stopAutoSlide();
+      autoSlideInterval = setInterval(() => {
+        const nextIndex = (tActiveIndex + 1) % tSlides.length;
+        updateTestimonialsUI(nextIndex);
+      }, 6000); // Auto slide every 6 seconds
+    };
+
+    const stopAutoSlide = () => {
+      if (autoSlideInterval) clearInterval(autoSlideInterval);
+    };
+    
+    tPrevBtn.addEventListener('click', () => {
+      const prevIndex = (tActiveIndex - 1 + tSlides.length) % tSlides.length;
+      updateTestimonialsUI(prevIndex);
+      startAutoSlide();
+    });
+    
+    tNextBtn.addEventListener('click', () => {
+      const nextIndex = (tActiveIndex + 1) % tSlides.length;
+      updateTestimonialsUI(nextIndex);
+      startAutoSlide();
+    });
+
+    const testimonialsWrapper = document.querySelector('.testimonials-carousel-wrapper');
+    if (testimonialsWrapper) {
+      testimonialsWrapper.addEventListener('mouseenter', stopAutoSlide);
+      testimonialsWrapper.addEventListener('mouseleave', startAutoSlide);
+      testimonialsWrapper.addEventListener('touchstart', stopAutoSlide, { passive: true });
+      testimonialsWrapper.addEventListener('touchend', startAutoSlide, { passive: true });
+    }
+
+    // Initialize UI
+    updateTestimonialsUI(0, false);
+    startAutoSlide();
+  }
 
   // 8. FAQ Accordion Logic
   const faqQuestions = document.querySelectorAll('.faq-question');
@@ -738,8 +884,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ease: 'power3.out'
   });
 
-  // 12. Contact Form Submission via Web3Forms
-  const contactForm = document.getElementById('contact-form');
+  // 12. Project Estimator / Multi-Step Form Logic
+  const estimatorForm = document.getElementById('estimator-form');
   const toast = document.getElementById('toast-notification');
   const toastTitle = toast?.querySelector('.toast-title');
   const toastDesc = toast?.querySelector('.toast-desc');
@@ -748,49 +894,92 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const showToast = (type, title, message) => {
     if (!toast || !toastTitle || !toastDesc) return;
-
-    // Reset toast status classes and force reflow
     toast.className = 'toast-notification';
     void toast.offsetWidth;
-
-    // Set text contents
     toastTitle.textContent = title;
     toastDesc.textContent = message;
-
-    // Add show and type classes
     toast.classList.add('show', type);
-
-    // Auto-hide toast after 5 seconds
     clearTimeout(toastTimeout);
     toastTimeout = setTimeout(() => {
       toast.classList.remove('show');
     }, 5000);
   };
 
-  if (contactForm && toast) {
-    contactForm.addEventListener('submit', async (e) => {
+  if (estimatorForm) {
+    const steps = estimatorForm.querySelectorAll('.estimator-step');
+    const progressBar = document.getElementById('estimator-progress-bar');
+    let currentStep = 0;
+
+    const updateStep = () => {
+      steps.forEach((step, index) => {
+        step.classList.toggle('active', index === currentStep);
+      });
+      if (progressBar) {
+        progressBar.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+      }
+    };
+
+    // Option selection & Navigation
+    steps.forEach((step) => {
+      const options = step.querySelectorAll('.option-card');
+      const nextBtn = step.querySelector('.next-step');
+      
+      options.forEach(option => {
+        option.addEventListener('click', () => {
+          // Deselect others in this step
+          options.forEach(opt => opt.classList.remove('selected'));
+          option.classList.add('selected');
+          
+          // Update hidden input
+          const targetId = option.getAttribute('data-target');
+          const value = option.getAttribute('data-value');
+          if (targetId) {
+            const hiddenInput = document.getElementById(targetId);
+            if (hiddenInput) hiddenInput.value = value;
+          }
+          
+          // Enable next button
+          if (nextBtn) nextBtn.disabled = false;
+        });
+      });
+      
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          if (currentStep < steps.length - 1) {
+            currentStep++;
+            updateStep();
+          }
+        });
+      }
+      
+      const prevBtn = step.querySelector('.prev-step');
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          if (currentStep > 0) {
+            currentStep--;
+            updateStep();
+          }
+        });
+      }
+    });
+
+    // Form Submission
+    estimatorForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Check honeypot
-      const botcheck = contactForm.querySelector('input[name="botcheck"]');
-      if (botcheck && botcheck.checked) {
-        return; // Silent block for bots
-      }
+      const botcheck = estimatorForm.querySelector('input[name="botcheck"]');
+      if (botcheck && botcheck.checked) return;
 
-      const submitBtn = contactForm.querySelector('.submit-btn');
+      const submitBtn = estimatorForm.querySelector('.submit-btn');
       const originalBtnText = submitBtn.innerHTML;
 
-      // Disable button & show loading spinner
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span class="loader-spinner"></span> Sending...';
 
-      const formData = new FormData(contactForm);
+      const formData = new FormData(estimatorForm);
       const formObject = Object.fromEntries(formData);
       
-      // Inject access key dynamically from environment variable
       formObject.access_key = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '';
-
-      const json = JSON.stringify(formObject);
 
       try {
         const response = await fetch('https://api.web3forms.com/submit', {
@@ -799,23 +988,28 @@ document.addEventListener("DOMContentLoaded", () => {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: json
+          body: JSON.stringify(formObject)
         });
 
         const result = await response.json();
 
         if (response.status === 200) {
-          showToast('success', 'Success', 'Your message has been sent successfully!');
-          contactForm.reset();
+          showToast('success', 'Success', 'Your proposal request has been sent!');
+          estimatorForm.reset();
+          currentStep = 0;
+          updateStep();
+          steps.forEach(step => {
+            const options = step.querySelectorAll('.option-card');
+            options.forEach(opt => opt.classList.remove('selected'));
+            const nBtn = step.querySelector('.next-step');
+            if (nBtn) nBtn.disabled = true;
+          });
         } else {
-          console.error(result);
-          showToast('error', 'Error', result.message || 'Something went wrong. Please try again.');
+          showToast('error', 'Error', result.message || 'Something went wrong.');
         }
       } catch (error) {
-        console.error(error);
-        showToast('error', 'Connection Error', 'Failed to reach the server. Please check your connection.');
+        showToast('error', 'Connection Error', 'Failed to reach the server.');
       } finally {
-        // Re-enable button & restore text
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
       }

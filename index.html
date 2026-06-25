@@ -140,7 +140,7 @@
                 <circle cx="12" cy="12" r="3"></circle>
               </svg>
               <div class="number-wrap">
-                <h3 class="counter" data-target="4">0</h3><span class="stat-suffix">M+</span>
+                <h3 class="counter" data-target="12">0</h3><span class="stat-suffix">M+</span>
               </div>
               <p>Views</p>
             </div>
@@ -160,7 +160,7 @@
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
               <div class="number-wrap">
-                <h3 class="counter" data-target="1100">0</h3><span class="stat-suffix">+</span>
+                <h3 class="counter" data-target="600">0</h3><span class="stat-suffix">+</span>
               </div>
               <p>Working Days</p>
             </div>
@@ -180,7 +180,7 @@
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
               </svg>
               <div class="number-wrap">
-                <h3 class="counter" data-target="30">0</h3><span class="stat-suffix">+</span>
+                <h3 class="counter" data-target="32">0</h3><span class="stat-suffix">+</span>
               </div>
               <p>Clients</p>
             </div>
@@ -504,53 +504,83 @@
     <section id="testimonials" class="testimonials light-section">
       <div class="container">
         <h2 class="section-title text-center gs-reveal-up" style="text-transform: capitalize;">Client Testimonials</h2>
-        <p class="section-subtitle text-center gs-reveal-up" style="margin: 0 auto 4rem auto; max-width: 900px; color: var(--color-text-muted);">
+        <p class="section-subtitle text-center gs-reveal-up" style="margin: 0 auto 2rem auto; max-width: 900px; color: var(--color-text-muted);">
           FILMITUP always prioritizes trust, authenticity, and professionalism while collaborating with the business. And this approach has made us a well-recognized creative agency. See what our respected clients are saying about us:
         </p>
 
-        <div class="testimonials-grid">
-          <div class="testimonial-card gs-reveal-up">
-            <p class="testimonial-text">"Working with FILMITUP has been a great experience for our business. Their team understood our goals clearly and implemented a well-structured creative strategy that significantly improved our brand visibility. Within a few months, we started seeing higher engagement and increased organic reach."</p>
-            <div class="testimonial-author-info">
-              <h4 class="testimonial-author">Dr Priyanka Mokshmar</h4>
-              <p class="testimonial-designation">Chairman, Vaayu Aircon</p>
+        <div class="testimonials-carousel-wrapper">
+          <button class="testimonials-carousel-btn prev-btn magnetic" aria-label="Previous testimonial">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          <div class="testimonials-carousel-track" id="testimonials-carousel">
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <p class="testimonial-text">"Working with FILMITUP has been a great experience for our business. Their team understood our goals clearly and implemented a well-structured creative strategy that significantly improved our brand visibility. Within a few months, we started seeing higher engagement and increased organic reach."</p>
+                <div class="testimonial-author-info">
+                  <h4 class="testimonial-author">Dr Priyanka Mokshmar</h4>
+                  <p class="testimonial-designation">Chairman, Vaayu Aircon</p>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <p class="testimonial-text">"FILMITUP helped us strengthen our online presence with a strategic approach to video production and content optimization. Their team conducted a detailed audit, fixed technical issues, and built a strong content plan that improved our brand value. We highly appreciate their expertise and dedication."</p>
+                <div class="testimonial-author-info">
+                  <h4 class="testimonial-author">Aditya Pahuja</h4>
+                  <p class="testimonial-designation">Director, Colors Packaging</p>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <p class="testimonial-text">"As a local business owner, I wanted to attract more customers from my city. FILMITUP implemented an effective local creative strategy that improved our visibility and increased enquiries. Their team is knowledgeable, responsive, and focused on delivering real results."</p>
+                <div class="testimonial-author-info">
+                  <h4 class="testimonial-author">Yash Pahuja</h4>
+                  <p class="testimonial-designation">Founder, The Wedding Pulao</p>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <p class="testimonial-text">"We partnered with FILMITUP to improve our website performance and brand aesthetics. Their team provided clear insights, implemented technical improvements, and helped us create stunning video content. The results have been impressive, and we have seen consistent growth in audience engagement."</p>
+                <div class="testimonial-author-info">
+                  <h4 class="testimonial-author">Ashish Jain</h4>
+                  <p class="testimonial-designation">Branding & Marketing Director, Shreedhi Milk</p>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <p class="testimonial-text">"FILMITUP has been instrumental in helping us grow our online reach. Their campaigns are data-driven and focused on long-term growth rather than quick fixes. We have seen significant improvement in our brand positioning since working with them."</p>
+                <div class="testimonial-author-info">
+                  <h4 class="testimonial-author">Nayan Bhargava</h4>
+                  <p class="testimonial-designation">Founder, Nazara Diamond</p>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <p class="testimonial-text">"We were struggling with creating conversion-focused video content, but FILMITUP experts helped us overcome these challenges. They implemented tailored solutions that aligned with our business objectives. Now we're getting 5X more engagement, and 150% boost in queries for key offerings."</p>
+                <div class="testimonial-author-info">
+                  <h4 class="testimonial-author">Niket Mangal</h4>
+                  <p class="testimonial-designation">Managing Director, NMgroup</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="testimonial-card gs-reveal-up" style="transition-delay: 0.1s;">
-            <p class="testimonial-text">"FILMITUP helped us strengthen our online presence with a strategic approach to video production and content optimization. Their team conducted a detailed audit, fixed technical issues, and built a strong content plan that improved our brand value. We highly appreciate their expertise and dedication."</p>
-            <div class="testimonial-author-info">
-              <h4 class="testimonial-author">Aditya Pahuja</h4>
-              <p class="testimonial-designation">Director, Colors Packaging</p>
-            </div>
-          </div>
-          <div class="testimonial-card gs-reveal-up" style="transition-delay: 0.2s;">
-            <p class="testimonial-text">"As a local business owner, I wanted to attract more customers from my city. FILMITUP implemented an effective local creative strategy that improved our visibility and increased enquiries. Their team is knowledgeable, responsive, and focused on delivering real results."</p>
-            <div class="testimonial-author-info">
-              <h4 class="testimonial-author">Yash Pahuja</h4>
-              <p class="testimonial-designation">Founder, The Wedding Pulao</p>
-            </div>
-          </div>
-          <div class="testimonial-card gs-reveal-up">
-            <p class="testimonial-text">"We partnered with FILMITUP to improve our website performance and brand aesthetics. Their team provided clear insights, implemented technical improvements, and helped us create stunning video content. The results have been impressive, and we have seen consistent growth in audience engagement."</p>
-            <div class="testimonial-author-info">
-              <h4 class="testimonial-author">Ashish Jain</h4>
-              <p class="testimonial-designation">Branding & Marketing Director, Shreedhi Milk</p>
-            </div>
-          </div>
-          <div class="testimonial-card gs-reveal-up" style="transition-delay: 0.1s;">
-            <p class="testimonial-text">"FILMITUP has been instrumental in helping us grow our online reach. Their campaigns are data-driven and focused on long-term growth rather than quick fixes. We have seen significant improvement in our brand positioning since working with them."</p>
-            <div class="testimonial-author-info">
-              <h4 class="testimonial-author">Nayan Bhargava</h4>
-              <p class="testimonial-designation">Founder, Nazara Diamond</p>
-            </div>
-          </div>
-          <div class="testimonial-card gs-reveal-up" style="transition-delay: 0.2s;">
-            <p class="testimonial-text">"We were struggling with creating conversion-focused video content, but FILMITUP experts helped us overcome these challenges. They implemented tailored solutions that aligned with our business objectives. Now we're getting 5X more engagement, and 150% boost in queries for key offerings."</p>
-            <div class="testimonial-author-info">
-              <h4 class="testimonial-author">Niket Mangal</h4>
-              <p class="testimonial-designation">Managing Director, NMgroup</p>
-            </div>
-          </div>
+
+          <button class="testimonials-carousel-btn next-btn magnetic" aria-label="Next testimonial">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+
+          <div class="testimonials-carousel-indicators" id="testimonials-carousel-dots"></div>
         </div>
       </div>
     </section>
@@ -596,39 +626,144 @@
     <!-- Contact Section (Dark) -->
     <section id="contact" class="contact dark-section">
       <div class="container relative-container">
-        <h2 class="section-title gs-reveal-up"><strong>Let's</strong> Connect</h2>
-        <p class="section-subtitle gs-reveal-up">Let's discuss your project at <a
+        <h2 class="section-title gs-reveal-up"><strong>Start a</strong> Project</h2>
+        <p class="section-subtitle gs-reveal-up">Let's build something amazing together. Or email us directly at <a
             href="mailto:filmitupstudios@gmail.com" class="text-accent">filmitupstudios@gmail.com</a></p>
 
-        <div class="contact-wrapper gs-reveal-up mt-4">
-          <form id="contact-form" class="agency-form" method="POST">
+        <div class="estimator-wrapper gs-reveal-up mt-4">
+          <div class="estimator-progress">
+            <div class="progress-bar" id="estimator-progress-bar"></div>
+          </div>
+          
+          <form id="estimator-form" class="agency-form estimator-form" method="POST">
             <!-- Web3Forms Configuration -->
-            <input type="hidden" name="from_name" value="FILMITUP Website Connect">
+            <input type="hidden" name="from_name" value="FILMITUP Project Inquiry">
             <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+            <!-- Important: Web3Forms access key is injected by JS, but if not we should ensure form works if it was working before -->
+            <!-- Adding back hidden access key if it was injected or handled in JS -->
+            <input type="hidden" id="est-service" name="service" value="">
+            <input type="hidden" id="est-budget" name="budget" value="">
+            <input type="hidden" id="est-timeline" name="timeline" value="">
 
-            <div class="form-row">
-              <div class="form-group">
-                <input type="text" id="name" name="name" placeholder=" " required>
-                <label for="name">Name</label>
-                <div class="input-line"></div>
+            <!-- Step 1: Service -->
+            <div class="estimator-step active" id="step-1">
+              <h3 class="step-title">What do you need help with?</h3>
+              <div class="options-grid">
+                <div class="option-card" data-value="Video Production" data-target="est-service">
+                  <div class="option-icon">🎥</div>
+                  <h4>Video Production</h4>
+                  <p>Commercials, Reels, Brand Films</p>
+                </div>
+                <div class="option-card" data-value="Social Media" data-target="est-service">
+                  <div class="option-icon">📱</div>
+                  <h4>Social Media</h4>
+                  <p>Management, Growth, Content</p>
+                </div>
+                <div class="option-card" data-value="Web Development" data-target="est-service">
+                  <div class="option-icon">💻</div>
+                  <h4>Web Development</h4>
+                  <p>Websites, Landing Pages</p>
+                </div>
+                <div class="option-card" data-value="Branding" data-target="est-service">
+                  <div class="option-icon">✨</div>
+                  <h4>Branding</h4>
+                  <p>Design, Identity, Strategy</p>
+                </div>
+                <div class="option-card" data-value="Creative Design" data-target="est-service">
+                  <div class="option-icon">🎨</div>
+                  <h4>Creative Design</h4>
+                  <p>Graphics, Thumbnails, UI/UX</p>
+                </div>
+                <div class="option-card" data-value="SEO" data-target="est-service">
+                  <div class="option-icon">📈</div>
+                  <h4>SEO</h4>
+                  <p>Search Ranking, Optimization</p>
+                </div>
+              </div>
+              <div class="step-actions right">
+                <button type="button" class="btn-primary next-step pulse-hover" disabled>Next Step</button>
+              </div>
+            </div>
+
+            <!-- Step 2: Budget -->
+            <div class="estimator-step" id="step-2">
+              <h3 class="step-title">What's your estimated budget?</h3>
+              <div class="options-grid">
+                <div class="option-card" data-value="< ₹50,000" data-target="est-budget">
+                  <h4>&lt; ₹50,000</h4>
+                  <p>Basic Projects</p>
+                </div>
+                <div class="option-card" data-value="₹50k - ₹2L" data-target="est-budget">
+                  <h4>₹50k - ₹2L</h4>
+                  <p>Standard Campaigns</p>
+                </div>
+                <div class="option-card" data-value="₹2L - ₹5L" data-target="est-budget">
+                  <h4>₹2L - ₹5L</h4>
+                  <p>Premium Production</p>
+                </div>
+                <div class="option-card" data-value="₹5L+" data-target="est-budget">
+                  <h4>₹5L+</h4>
+                  <p>Full-Scale Agency Retainer</p>
+                </div>
+              </div>
+              <div class="step-actions split">
+                <button type="button" class="btn-ghost prev-step">Back</button>
+                <button type="button" class="btn-primary next-step pulse-hover" disabled>Next Step</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Timeline -->
+            <div class="estimator-step" id="step-3">
+              <h3 class="step-title">When do you want to start?</h3>
+              <div class="options-grid">
+                <div class="option-card" data-value="ASAP" data-target="est-timeline">
+                  <h4>ASAP</h4>
+                  <p>We're ready to go</p>
+                </div>
+                <div class="option-card" data-value="Within 1 Month" data-target="est-timeline">
+                  <h4>Within 1 Month</h4>
+                  <p>Still planning</p>
+                </div>
+                <div class="option-card" data-value="1-3 Months" data-target="est-timeline">
+                  <h4>1-3 Months</h4>
+                  <p>Exploring options</p>
+                </div>
+                <div class="option-card" data-value="Just Browsing" data-target="est-timeline">
+                  <h4>Just Browsing</h4>
+                  <p>Getting quotes</p>
+                </div>
+              </div>
+              <div class="step-actions split">
+                <button type="button" class="btn-ghost prev-step">Back</button>
+                <button type="button" class="btn-primary next-step pulse-hover" disabled>Next Step</button>
+              </div>
+            </div>
+
+            <!-- Step 4: Contact Details -->
+            <div class="estimator-step" id="step-4">
+              <h3 class="step-title">Awesome! Where should we send the proposal?</h3>
+              <div class="form-row mt-3">
+                <div class="form-group">
+                  <input type="text" id="est-name" name="name" placeholder=" " required>
+                  <label for="est-name">Name</label>
+                  <div class="input-line"></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" id="est-email" name="email" placeholder=" " required>
+                  <label for="est-email">Email</label>
+                  <div class="input-line"></div>
+                </div>
               </div>
               <div class="form-group">
-                <input type="email" id="email" name="email" placeholder=" " required>
-                <label for="email">Email</label>
+                <textarea id="est-message" name="message" placeholder=" " rows="3"></textarea>
+                <label for="est-message">Any specific details? (Optional)</label>
                 <div class="input-line"></div>
               </div>
+              <div class="step-actions split">
+                <button type="button" class="btn-ghost prev-step">Back</button>
+                <button type="submit" class="btn-primary submit-btn pulse-hover">Submit Request</button>
+              </div>
             </div>
-            <div class="form-group">
-              <input type="text" id="subject" name="subject" placeholder=" ">
-              <label for="subject">Subject</label>
-              <div class="input-line"></div>
-            </div>
-            <div class="form-group">
-              <textarea id="message" name="message" placeholder=" " rows="4" required></textarea>
-              <label for="message">Message</label>
-              <div class="input-line"></div>
-            </div>
-            <button type="submit" class="btn-primary submit-btn pulse-hover">Submit</button>
           </form>
         </div>
       </div>

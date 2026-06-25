@@ -174,6 +174,12 @@ h1, h2, h3, h4 {
   max-width: 700px;
 }
 
+@media (max-width: 768px) {
+  .section-subtitle {
+    display: none !important;
+  }
+}
+
 .text-accent {
   color: var(--color-accent) !important;
 }
@@ -1154,6 +1160,41 @@ h1, h2, h3, h4 {
   font-size: 0.9rem;
 }
 
+@media (max-width: 768px) {
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 1.5rem;
+    justify-items: center;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  
+  .stat-ring {
+    width: 145px;
+    height: 145px;
+  }
+  
+  .stat-item h3 {
+    font-size: 2.2rem;
+  }
+  
+  .stat-suffix {
+    font-size: 1.2rem;
+  }
+  
+  .stat-item p {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+  
+  .stat-content > svg {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 0.25rem;
+  }
+}
+
 /* Case Studies */
 .case-grid {
   display: flex;
@@ -1624,6 +1665,7 @@ h1, h2, h3, h4 {
 
 @media (max-width: 768px) {
   .testimonials-carousel-wrapper {
+    margin-top: 1rem !important;
     margin-left: -16px;
     margin-right: -16px;
   }
@@ -1902,7 +1944,16 @@ h1, h2, h3, h4 {
 /* Mobile Optimizations */
 @media (max-width: 768px) {
   section {
-    padding: 4rem 16px;
+    padding: 2.5rem 16px !important;
+  }
+  .brands {
+    padding: 2.5rem 0 !important;
+  }
+  .stats {
+    padding: 2.5rem 0 !important;
+  }
+  .footer {
+    padding: 2.5rem 0 0 0 !important;
   }
   .container {
     padding: 0 16px;
@@ -1910,10 +1961,23 @@ h1, h2, h3, h4 {
   
   .section-title {
     font-size: 2rem;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .intro-text {
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .marquee-container {
+    margin-top: 1rem !important;
+    gap: 1rem !important;
   }
   
   .hero {
-    padding-top: 100px;
+    padding-top: 130px !important;
+    padding-bottom: 1.5rem !important;
     min-height: auto;
   }
   
@@ -1958,6 +2022,7 @@ h1, h2, h3, h4 {
   }
 
   .carousel-wrapper {
+    margin-top: 1rem !important;
     margin-left: -16px;
     margin-right: -16px;
   }
